@@ -8,6 +8,13 @@ import {
   useNavigate, // <-- Import useNavigate
 } from "react-router-dom";
 
+import techImage from "./assets/tech1.jpg"; // Corrected path
+import craftsImage from "./assets/crafts1.jpg"; // Corrected path
+import envImage from "./assets/env1.jpg"; // Corrected path
+import gameImage from "./assets/game1.jpg"; // Corrected path
+import artImage from "./assets/art1.jpg"; // Corrected path
+import defaultImage from "./assets/default.jpg"; // Corrected path
+
 import Modal from "./Modal";
 
 // --- Reusable Components ---
@@ -116,26 +123,39 @@ function ProjectCard({ project }) {
     100,
     Math.round((project.raised / project.goal) * 100)
   );
-  const imageUrl = `https://source.unsplash.com/400x300/?${encodeURIComponent(
-    project.category.toLowerCase() || project.title.split(" ")[0] || "project"
-  )}`;
+  let displayImage;
+  switch (project.category?.toLowerCase()) {
+    case "technology":
+      displayImage = techImage;
+      break;
+    case "crafts":
+      displayImage = craftsImage;
+      break;
+    case "environment":
+      displayImage = envImage;
+      break;
+    case "games":
+      displayImage = gameImage;
+      break;
+    case "art":
+      displayImage = artImage;
+      break;
+    // Add more cases if you have more images/categories (e.g., music, film)
+    default:
+      displayImage = defaultImage; // Use default if no match
+  }
+
   return (
     <div className="card">
       {" "}
       {/* --- REPLACED IMAGE WITH PLACEHOLDER --- */}
-      <div className="card-img-placeholder" style={{ height: "200px" }}>
-        {" "}
-        {/* Keep height consistent */}
-        {/* Basic Image SVG Icon */}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          viewBox="0 0 16 16"
-        >
-          <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-          <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
-        </svg>
-      </div>
+      <img
+        src={displayImage} // Use the selected local image variable
+        alt={project.title}
+        className="card-img" // Keep existing class for styling
+        style={{ height: "200px", objectFit: "cover" }} // Ensure consistent height and cover
+        loading="lazy"
+      />
       {/* --- END PLACEHOLDER --- */}{" "}
       <div className="card-body">
         {" "}
@@ -495,28 +515,40 @@ function ProjectDetailPage() {
       },
     ],
   };
+  let detailImage;
+  switch (project.category?.toLowerCase()) {
+    case "technology":
+      detailImage = techImage;
+      break;
+    case "crafts":
+      detailImage = craftsImage;
+      break;
+    case "environment":
+      detailImage = envImage;
+      break;
+    case "games":
+      detailImage = gameImage;
+      break;
+    case "art":
+      detailImage = artImage;
+      break;
+    // Add more cases as needed
+    default:
+      detailImage = defaultImage;
+  }
   const progressPercent = Math.min(
     100,
     Math.round((project.raised / project.goal) * 100)
   );
   const [activeTab, setActiveTab] = useState("story");
   const imageUrlPlaceholder = (
-    <div
-      className="card-img-placeholder rounded mb-4 w-full shadow"
-      style={{ height: "400px", maxHeight: "500px" }}
-    >
-      {" "}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        viewBox="0 0 16 16"
-        style={{ width: "60px", height: "60px" }}
-      >
-        {" "}
-        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />{" "}
-        <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />{" "}
-      </svg>{" "}
-    </div>
+    <img
+      src={detailImage} // Use the selected local image variable
+      alt={project.title}
+      className="rounded mb-4 w-full shadow card-img" // Keep relevant classes
+      style={{ height: "auto", maxHeight: "500px", objectFit: "cover" }} // Keep styles
+      loading="lazy"
+    />
   );
 
   return (
