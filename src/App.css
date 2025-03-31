@@ -16,14 +16,6 @@
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-/* Add this class dynamically when modal is open */
-/* We won't add this class in JS for simplicity now, rely on isOpen prop */
-/* Alternatively, directly control styles based on isOpen prop */
-.modal-overlay {
-  /* Simplified: Directly show/hide */
-  /* Let Modal.jsx handle visibility via isOpen prop */
-}
-
 .modal-content {
   background-color: var(
     --white-color,
