@@ -399,26 +399,63 @@ a:hover {
 }
 
 /* --- Hero Section --- */
+/* src/index.css */
+
+/* Find this existing rule */
 .hero-section {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url(https://source.unsplash.com/1600x600/?technology,crowdfunding) center
-      center/cover no-repeat; /* Use unsplash for bg */
+  /* REPLACE the background property */
+  /* background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://source.unsplash.com/1600x600/?technology,crowdfunding) center center/cover no-repeat; */
+  background: linear-gradient(
+    45deg,
+    #243b55,
+    #141e30
+  ); /* Example Gradient: Dark Blue */
+  /* OR try a teal gradient: */
+  /* background: linear-gradient(45deg, #19a078, #20c997); */
+
   color: var(--white-color);
-  padding: 6rem 1rem;
+  padding: 6rem 1rem; /* Keep padding */
   text-align: center;
   margin-bottom: 3rem;
 }
+
+/* Adjustments for text contrast on gradient */
 .hero-section h1 {
   color: var(--white-color);
   font-size: 3.5rem;
   font-weight: 600;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Slightly softer shadow */
 }
 .hero-section p {
   font-size: 1.3rem;
   color: rgba(255, 255, 255, 0.85);
   max-width: 650px;
   margin: 1rem auto 2.5rem auto;
+}
+
+/* Optional: Styles to help align SVGs inside buttons */
+.button svg {
+  vertical-align: middle; /* Align icon vertically */
+  margin-right: 0.3rem; /* Space between icon and text */
+  width: 1em; /* Size relative to font size */
+  height: 1em;
+}
+.button svg.icon-only {
+  /* For buttons with only an icon */
+  margin-right: 0;
+}
+
+/* Adjust navbar avatar if using SVG */
+.navbar-avatar svg {
+  width: 20px; /* Adjust size for user icon */
+  height: 20px;
+}
+
+/* Social button specific sizing */
+.social-share-buttons .button svg {
+  width: 18px;
+  height: 18px;
+  margin-right: 0; /* No margin if icon only */
 }
 
 /* --- Search Input --- */
@@ -717,4 +754,146 @@ hr {
   border: 0;
   border-top: 1px solid var(--border-color);
   opacity: 0.25;
+}
+
+/* --- Add these styles for Image Placeholders --- */
+
+.card-img-placeholder {
+  width: 100%;
+  display: flex; /* Use flexbox to center content */
+  align-items: center;
+  justify-content: center;
+  background-color: #e9ecef; /* Fallback background color (light gray) */
+  color: #adb5bd; /* Color for the icon (muted gray) */
+  border-bottom: 1px solid var(--border-color);
+  overflow: hidden; /* Ensure icon doesn't overflow */
+}
+
+.card-img-placeholder svg {
+  width: 40px; /* Adjust size as needed */
+  height: 40px;
+  opacity: 0.8;
+}
+
+/* --- Optional: Adjust existing card-img style if needed --- */
+/* If you had specific styles on .card-img besides height/object-fit,
+   you might need to move them or ensure they don't conflict.
+   For now, we only need to ensure the placeholder has a height set below. */
+
+/* src/index.css - Add styles for Multi-Step Form */
+
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  counter-reset: step; /* Initialize step counter */
+}
+
+.step-indicator-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.step-indicator-item::before {
+  counter-increment: step;
+  content: counter(step);
+  display: block;
+  width: 30px;
+  height: 30px;
+  line-height: 28px; /* Adjust for border */
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  background-color: var(--white-color);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+/* Styling for the line connecting steps (optional) */
+.step-indicator-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  width: calc(100% - 40px); /* Adjust width based on circle size and padding */
+  height: 1px;
+  background-color: var(--border-color);
+  top: 15px; /* Position in the middle of the circle */
+  left: calc(50% + 20px); /* Start after the circle */
+  z-index: -1; /* Behind the circle */
+}
+
+.step-indicator-item.active::before {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--white-color);
+}
+.step-indicator-item.active {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+/* Basic form layout */
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem; /* Consistent padding */
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--white-color);
+  background-clip: padding-box;
+  border: 1px solid var(--border-color);
+  appearance: none; /* Remove default styling */
+  border-radius: var(--border-radius);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  color: var(--text-color);
+  background-color: var(--white-color);
+  border-color: #86b7fe; /* Focus color */
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.form-textarea {
+  min-height: 120px; /* Default height for text areas */
+  resize: vertical; /* Allow vertical resize */
+}
+
+/* Style for select dropdown arrow */
+.form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+}
+
+/* Form Group Spacing */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Form Actions (Next/Prev Buttons) */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
 }
